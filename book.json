@@ -22,9 +22,10 @@
         "anchors",
         "sharing-plus",
         "anchor-navigation-ex",
-        "favicon"
+        "favicon",
+        "lunr"
     ],
-    "pluginsConfig": {        
+    "pluginsConfig": {
         "sharing": {
             "douban": false,
             "facebook": false,
@@ -44,14 +45,20 @@
             "weibo": false,
             "whatsapp": false,
             "all": [
-                "google", "facebook", "weibo", "twitter",
-                "qq", "qzone", "linkedin", "pocket"
+                "google",
+                "facebook",
+                "weibo",
+                "twitter",
+                "qq",
+                "qzone",
+                "linkedin",
+                "pocket"
             ]
         },
         "anchor-navigation-ex": {
             "showLevel": false
         },
-        "favicon":{
+        "favicon": {
             "shortcut": "./source/images/favicon.jpg",
             "bookmark": "./source/images/favicon.jpg",
             "appleTouch": "./source/images/apple-touch-icon.jpg",
@@ -59,6 +66,9 @@
                 "120x120": "./source/images/apple-touch-icon.jpg",
                 "180x180": "./source/images/apple-touch-icon.jpg"
             }
+        },
+        "lunr": {
+            "maxIndexSize": 200000
         }
     }
 }

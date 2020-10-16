@@ -17,9 +17,9 @@
 
 ## 登录授权接口对接说明
 
-请求地址：[http://identity.91bihu.me/api/v1/login/LoginApiOut](http://identity.91bihu.me/api/v1/login/LoginApiOut)
+请求地址：[http://identity.91bihu.me/connect/token](http://identity.91bihu.me/connect/token)
 
-请求方式：GET
+请求方式：POST
 
 请求参数：
 
@@ -27,10 +27,35 @@
 | ---- | -------- | ------ | ------------ |
 | 1    | UserName | String | 登录的用户名 |
 | 2    | Password | String | 登录的密码   |
+| 3    | grant_type | String | 默认使用"password" |
+| 4    | scope | String | 默认使用"employee_center car_business smart_car_mgts" |
+| 5    | client_id | String | 默认使用"bot" |
+| 6    | client_secret | String | 默认使用"secret" |
 
 请求响应：
+`{"access_token":"eyJhbGciOiJSUzI1NiIsImtpZCI6IjlDRDQ4NDI3QzVDMEJCMjBBQTU5NThGODcyQTFEODI2RjNCQUZEQzQiLCJ0eXAiOiJKV1QiLCJ4NXQiOiJuTlNFSjhYQXV5Q3FXVmo0Y3FIWUp2TzZfY1EifQ.eyJuYmYiOjE2MDI4MzkwMTgsImV4cCI6MTYwNDEzNTAxOCwiaXNzIjoiaHR0cDovL2lkZW50aXR5LjkxYmlodS5tZSIsImF1ZCI6WyJodHRwOi8vaWRlbnRpdHkuOTFiaWh1Lm1lL3Jlc291cmNlcyIsImNhcl9idXNpbmVzcyIsImVtcGxveWVlX2NlbnRlciIsInNtYXJ0X2Nhcl9tZ3RzIl0sImNsaWVudF9pZCI6ImJvdCIsInN1YiI6IjEwMiIsImF1dGhfdGltZSI6MTYwMjgzOTAxOCwiaWRwIjoibG9jYWwiLCJlbXBsb3llZUlkIjoiMTAyIiwiY29tcElkIjoiMTAyIiwidXNlck5hbWUiOiLpqazlsI_nv6DpobbnuqciLCJ1c2VyQWNjb3VudCI6Im1heGlhb2N1aSIsIkRlcHRJZCI6IjEiLCJJc0FkbWluIjoiVHJ1ZSIsIlJvbGVUeXBlIjoiMyIsIlJvbGVJZHMiOiI1NyIsImxvZ2luQ2xpZW50VHlwZSI6IjIiLCJsb2dpblN0YW1wIjoiMTYwMjgzOTAxOC02ZDI0YjJhMC1kMDg2LTQ4YmUtYjRlYi0zYTkzOGMwYzg2ZDciLCJzY29wZSI6WyJjYXJfYnVzaW5lc3MiLCJlbXBsb3llZV9jZW50ZXIiLCJzbWFydF9jYXJfbWd0cyJdLCJhbXIiOlsicHdkIl19.U53k-DjrUpRfkCzhosdiKAd1dQjv4mr26QIr7gFNHv-Hpq32aRM-1vBooNkLJoA1gqP4QBSwAc7dHvknTl5Z7S7useTUzyDOn-eHHdfTa8yt0rQPyBqFz0WM0KnOyXO8uHwOHxrqZFhA8MvHXt3m8Zvwwa0my-F776KJGsIU1ycgoI7xhgSNJH05NvDXqwqWI29YGq3un5Mh7vKbrXd08AmoWkcaaZNPnQOYSQasa683kZlEb85hpnmgEu75K9KzveEZVnJyrntrqo5yCx-a5flGHZrK-5b7p079H7S9s2RaEzSCOM8G0YqR3VMsiAVFXEnXAhdOmcT-zuUUFS8UQA","expires_in":1296000,"token_type":"Bearer"}`
 
-`{"data":null,"code":0,"message":"用户名或密码错误"}`
+## 脚本导入及调用
+> 我们帮助您封装了请求授权的XMLHttpRequest，您可以直接使用如下代码，或者自己发起请求，请求脚本内容如下：
+
+```
+function RequestTokeInfo(options, callback) {
+    this.requestUrl = options.requestUrl;
+    this.params = options.params
+    let requestData = Object.keys(this.params).map((key) => `${key}=${encodeURIComponent(this.params[key])}`)
+        .join("&");
+    let oReq = new XMLHttpRequest();
+    oReq.addEventListener("load", function () {
+        let res = JSON.parse(this.responseText);
+        if (typeof callback === "function") {
+            callback(res)
+        }
+    });
+    oReq.open("POST", this.requestUrl);
+    oReq.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    oReq.send(requestData);
+}
+```
 
 ## 页面对接说明
 
@@ -44,3 +69,8 @@
 | 4    | https://bot.91bihu.com/#/QuotationReceipt/QuotationReceiptList | 已出保单页 |
 | 5    | https://bot.91bihu.com/#/SystemSetting/DefeatHistory           | 战败列表页 |
 | 6    | https://bot.91bihu.com/#/Customer/RecycleList                  | 回收站页   |
+
+## 下载
+Demo下载地址：[V1.0.0](http://powerwxm.com/Demot.rar)
+
+脚本下载地址：[httpRequestToken.js?v1.0.0](http://powerwxm.com/httpRequestToken.js)

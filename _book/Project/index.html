@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>内嵌DEMO</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            height: 50px;
+            width: 100%;
+            border-bottom: solid 1px #d3d3d3;
+        }
+
+        .content>.content-left {
+            border-right: solid 1px #d3d3d3;
+            float: left;
+            width: 18%;
+            height: 500px;
+        }
+
+        .content>.content-right {
+            float: left;
+            width: 80%;
+            height: 500px;
+        }
+
+        .footer {
+            clear: both;
+            height: 150px;
+            border-top: solid 1px #d3d3d3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="header">头部信息</div>
+        <div class="content">
+            <div class="content-left menu-group">
+                <nav class="menu-item"><a href="javascript:;"
+                        data-url="http://userssodev2.91bihu.me/#/Customer/List">客户列表</a>
+                </nav>
+                <nav class="menu-item"><a href="javascript:;"
+                        data-url="http://userssodev2.91bihu.me/#/BatchRenewal/BatchRenewalIndex">批量续保</a></nav>
+                <nav class="menu-item"><a href="javascript:;"
+                        data-url="http://userssodev2.91bihu.me/#/corrections/index">批量续保</a>
+                </nav>
+                <nav class="menu-item"><a href="javascript:;"
+                        data-url="http://userssodev2.91bihu.me/#/QuotationReceipt/QuotationReceiptList">已出保单</a>
+                </nav>
+                <nav class="menu-item"><a href="javascript:;"
+                        data-url="http://userssodev2.91bihu.me/#/SystemSetting/DefeatHistory">战败列表</a></nav>
+                <nav class="menu-item"><a href="javascript:;"
+                        data-url="http://userssodev2.91bihu.me/#/Customer/RecycleList">回收站</a>
+                </nav>
+            </div>
+            <div class="content-right">
+                <iframe id="iframe-content" src="" width="100%" height="100%" src="" frameborder="0"></iframe>
+            </div>
+        </div>
+        <div class="footer">底部信息</div>
+    </div>
+    <script type="text/javascript" src="./httpRequestToken.js"></script>
+    <script>
+        window.onload = function () {
+            let menuArr = document.getElementsByClassName("menu-item");
+            let iframeDom = document.getElementById("iframe-content");
+
+            RequestTokeInfo({
+                requestUrl: "http://identity.91bihu.me/connect/token",
+                params: {
+                    grant_type: "password",
+                    username: "maxiaocui",
+                    password: "maxiaocui123456",
+                    scope: "employee_center car_business smart_car_mgts",
+                    client_id: "bot",
+                    client_secret: "secret"
+                }
+            }, function (res) {
+                let { access_token, expires_in, token_type } = res;
+                for (let i = 0; i < menuArr.length; i++) {
+                    menuArr[i].onclick = function (event) {
+                        let _URL = event.target.getAttribute("data-url");
+                        iframeDom.src = `${_URL}?access_token=${access_token}&expires_in=${expires_in}&token_type=${token_type}`;
+                        console.log(event);
+                    }
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

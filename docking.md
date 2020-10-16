@@ -71,6 +71,6 @@ function RequestTokeInfo(options, callback) {
 | 6    | https://bot.91bihu.com/#/Customer/RecycleList                  | 回收站页   |
 
 ## 下载
-Demo下载地址：[V1.0.0](http://powerwxm.com/Demot.rar)
+Demo下载地址：[V1.0.0](./Demot.rar)
 
-脚本下载地址：[httpRequestToken.js?v1.0.0](http://powerwxm.com/httpRequestToken.js)
+脚本下载地址：[httpRequestToken.js?v1.0.0](./Project/httpRequestToken.js)
